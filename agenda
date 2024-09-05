@@ -1,0 +1,81 @@
+import tkinter as tk
+from tkinter import messagebox
+import sqlite3 as s 
+def cadastrar_telefone():
+    conexao = sqlite3.connect("agenda.db")
+    c=conexao.cursor()
+def  criar_tabela():
+     
+    conexao = s.connect("agenda.db")
+    cursor = conexao.cursor()
+    sqlite3 = "CREATE TABLE contatos(Nome, ddd,numero_de_telefone,referencia);"
+    cursor.execute("INSERT INTO contatos(Nome, ddd, numero_de_telefone, referencia)VALUES (:Nome, :ddd, :numero_de_telefone, :referencia))   ", 
+               {
+                   "nome":entry_Nome.get(), 
+                   "ddd":entry_ddd.get(), 
+                   "numero_de_telefone":entry_numero_de_telefone.get(),
+                    "referencia":entry_referencia.get()  
+               }) 
+    conexao.commit()
+    res = cursor.execute("SELECT name FROM  sqlite_master")
+    print(res.fetchall())
+window = tk.Tk()
+window.title('formulario de cadastro')
+window.geometry("900x677")
+def querypg(Nome, ddd, numero_de_telefone, referencia):
+    print("Nome:", Nome)
+    print("ddd:", ddd)
+    print("numero_de_telefone:", numero_de_telefone)
+    print("referencia:", referencia)
+   
+ 
+# janela
+text = tk.Label(window, width=130,)
+textentry=tk.Entry(window)
+ 
+ 
+ 
+placeholder_image = tk.PhotoImage(width=1, height=1)
+label_image = tk.Label(window, image=placeholder_image)
+label_image.grid(pady=5)
+# entrada nome
+text.grid()
+nomelabel = tk.Label(window, text="nome")
+nomelabel.grid()
+nomeentry=tk.Entry(window, width=30)
+nomeentry.grid(column=0, row=28)
+nomeentry.grid(column=0, row=28)
+# entrada idade
+ 
+dddlabel=tk.Label (window, text="ddd")
+dddlabel.grid()
+dddentry = tk.Entry(window,text="ddd")
+dddentry.grid()
+ 
+# entrada peso
+numero_de_telefonelabel= tk.Label(window, text="telefone")
+numero_de_telefonelabel.grid()
+numero_de_telefoneentry = tk.Entry(window, text="telefone")
+numero_de_telefoneentry.grid()
+ 
+# entrada altura
+referencialabel= tk.Label(window, text="refrencia ")
+referencialabel.grid()
+referenciaentry = tk.Entry(window, text="referencia")
+referenciaentry.grid()
+ 
+# extra
+extralabel= tk.Label(window, text="extra")
+extralabel.grid()
+extraentry = tk.Entry(window, text="extra")
+extraentry.grid()
+ 
+ 
+# criação botão login
+button = tk.Button (window, text="Login", command=lambda:querypg(nomeentry.get(),dddentry.get(), numero_de_telefone_entry.get(), referencia.get(),extraentry.get()))
+button.grid(column=0, row=50)
+# criação do botão cancelar
+button2 = tk.Button (window,  text="Cancelar",command=quit)
+button2.grid(column=0, row=100)
+
+window.mainloop()
